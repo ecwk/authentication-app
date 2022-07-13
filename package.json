@@ -12,18 +12,22 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cm": "custom-commit"
   },
   "devDependencies": {
-    "prettier-config": "workspace:*",
+    "@commitlint/cli": "17.0.3",
+    "@commitlint/config-conventional": "17.0.3",
+    "commitizen": "^4.2.4",
+    "custom-commit": "workspace:*",
+    "husky": "^8.0.0",
     "prettier": "latest",
-    "turbo": "latest",
-    "husky": "^8.0.0"
+    "prettier-config": "workspace:*",
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "dependencies": {},
   "packageManager": "pnpm@6.33.0"
 }

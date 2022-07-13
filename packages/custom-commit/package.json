@@ -1,0 +1,9 @@
+{
+  "name": "custom-commit",
+  "version": "1.0.0",
+  "bin": "index.js",
+  "dependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}
