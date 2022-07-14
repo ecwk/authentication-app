@@ -2,6 +2,9 @@
   "name": "authentication-app",
   "version": "0.1.0",
   "private": true,
+  "description": "Authentication app based on devchallenges.io",
+  "homepage": "https://github.com/cNoside/authentication-app",
+  "license": "MIT",
   "workspaces": [
     "apps/*",
     "packages/*"
