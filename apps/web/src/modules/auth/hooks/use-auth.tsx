@@ -5,6 +5,7 @@ import { useState, useContext, createContext } from 'react';
 
 import { usersApiClient } from 'src/modules/users/api';
 import { User } from 'src/modules/users/types';
+import { client } from '@config/axios';
 import { useCookie } from 'src/hooks';
 
 type Token = Jwt & {
@@ -54,11 +55,11 @@ const useAuthProvider = (): AuthContextInterface => {
   // Set axios auth from token
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common[
+      client.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${token.encoded}`;
     } else {
-      axios.defaults.headers.common['Authorization'] = '';
+      client.defaults.headers.common['Authorization'] = '';
     }
   }, [token]);
 
@@ -90,11 +91,14 @@ const useAuthProvider = (): AuthContextInterface => {
 
   async function login(email: string, password: string): Promise<User> {
     const { token, user } = (
-      await axios.post('/login', {
+      await client.post<{
+        token: { encoded: string; expiresIn: number };
+        user: User;
+      }>('/login', {
         email,
         password
       })
-    ).data as { token: { encoded: string; expiresIn: number }; user: User };
+    ).data;
     setEncodedToken(token.encoded, {
       expires: new Date(token.expiresIn)
     });

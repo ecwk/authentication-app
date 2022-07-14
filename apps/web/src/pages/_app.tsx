@@ -8,11 +8,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { AuthProvider } from 'src/modules/auth/hooks';
 import { Navbar, Redirects } from 'src/components';
-import { theme, configureAxios } from '../config';
+import { theme } from '../config';
 import '../styles/globals.css';
 
 const queryClient = new QueryClient();
-configureAxios();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

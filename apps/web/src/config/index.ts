@@ -1,3 +1,3 @@
 export { theme } from './theme';
-export { configureAxios } from './axios';
+export * from './axios';
 export { configuration } from './configuration';

@@ -1,6 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { GetServerSideProps } from 'next';
 
+import { server } from '@config/axios';
 import { User } from '../types';
 
 const findUserById: GetServerSideProps = async (context) => {
@@ -9,11 +10,10 @@ const findUserById: GetServerSideProps = async (context) => {
   if (!token) {
     user = null;
   } else {
-    const instance = axios.create();
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    server.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     try {
       const id = context.query.userid as string;
-      user = (await instance.get(`/users/${id}`)).data;
+      user = (await server.get(`/users/${id}`)).data;
     } catch (err) {
       if (!(err instanceof AxiosError)) {
         console.error(err);
@@ -34,10 +34,9 @@ const findUsers: GetServerSideProps = async (context) => {
   if (!token) {
     users = null;
   } else {
-    const instance = axios.create();
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    server.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     try {
-      users = (await instance.get('/users')).data;
+      users = (await server.get('/users')).data;
     } catch (err) {
       if (!(err instanceof AxiosError)) {
         console.error(err);
