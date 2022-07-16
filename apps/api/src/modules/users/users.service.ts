@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { User, UserDocument } from './schema';
-import { generateId } from 'src/utils';
+import { generateId } from '@common/utils';
 
 type UserFilterQuery = FilterQuery<UserDocument>;
 

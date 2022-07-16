@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import appConfig, { AppConfig } from './config/app.config';
+import { appConfig, AppConfig } from '@common/config';
 import { AppController } from './app.controller';
+import { UsersModule } from '@modules/users';
 import { AppService } from './app.service';
-import { S3Module, UsersModule, AuthModule } from './modules';
+import { AuthModule } from '@modules/auth';
+import { S3Module } from '@modules/s3';
 
 @Module({
   imports: [

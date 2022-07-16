@@ -16,15 +16,15 @@ import {
   PutObjectCommand,
   DeleteObjectCommand
 } from '@aws-sdk/client-s3';
-import { fromBuffer as fileTypeFromBuffer } from 'file-type';
 import { FileExtension } from 'file-type';
 import { ConfigService } from '@nestjs/config';
+import { fromBuffer as fileTypeFromBuffer } from 'file-type';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
-import { AppConfig } from 'src/config/app.config';
+import { AppConfig } from '@common/config/app.config';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
-import { InjectS3 } from '../s3/s3.decorators';
+import { InjectS3 } from '@modules/s3';
 // import { Public } from '../auth/decorators';
 
 const PP_ALLOWED_EXTENSIONS: FileExtension[] = ['png', 'jpg'];

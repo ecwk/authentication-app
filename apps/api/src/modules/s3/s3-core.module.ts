@@ -1,5 +1,5 @@
-import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
 import { S3Client } from '@aws-sdk/client-s3';
+import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
 
 import {
   S3ModuleOptions,

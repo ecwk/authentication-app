@@ -1,6 +1,5 @@
-import { ModuleMetadata, FactoryProvider } from '@nestjs/common';
-
 import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3';
+import { ModuleMetadata, FactoryProvider } from '@nestjs/common';
 
 export interface S3ModuleOptions extends S3ClientConfig {
   connectionToken?: string;
