@@ -1,0 +1,1 @@
+export { RequestUser }  from './request-user.type'

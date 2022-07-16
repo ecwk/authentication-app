@@ -2,8 +2,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { AppConfig } from 'src/config/app.config';
-import { UsersService } from '../users/users.service';
+import { UsersService, UserDocument } from '@modules/users';
+import { SignUpDto } from './dto/sign-up.dto';
+import { AppConfig } from '@common/config';
 import { User } from '../users/schema';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class AuthService {
     }
   }
 
-  async getJwtToken(user: User) {
+  async getJwtToken(user: Omit<User, 'password'>) {
     return this.jwtService.sign(
       { email: user.email },
       {
@@ -35,5 +36,9 @@ export class AuthService {
         expiresIn: this.appConfig.jwt.expiresIn
       }
     );
+  }
+
+  async signUp(signUpDto: SignUpDto, select = ''): Promise<UserDocument> {
+    return this.usersService.create(signUpDto, select);
   }
 }

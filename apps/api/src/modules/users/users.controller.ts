@@ -21,7 +21,7 @@ import { ConfigService } from '@nestjs/config';
 import { fromBuffer as fileTypeFromBuffer } from 'file-type';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
-import { AppConfig } from '@common/config/app.config';
+import { AppConfig } from '@common/config';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
 import { InjectS3 } from '@modules/s3';

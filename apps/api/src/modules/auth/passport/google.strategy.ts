@@ -4,11 +4,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { Strategy, StrategyOptions, Profile } from 'passport-google-oauth20';
 
-import { ConfigService } from '@nestjs/config';
-import { User } from 'src/modules/users/schema';
-import { InjectS3 } from 'src/modules/s3/s3.decorators';
-import { AppConfig } from 'src/config/app.config';
 import { UsersService } from 'src/modules/users/users.service';
+import { InjectS3 } from 'src/modules/s3/s3.decorators';
+import { User } from 'src/modules/users/schema';
+import { ConfigService } from '@nestjs/config';
+import { AppConfig } from '@common/config';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {

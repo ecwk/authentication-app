@@ -1,14 +1,25 @@
 import * as ms from 'ms';
 import { Request, Response } from 'express';
-import { Controller, Post, UseGuards, Req, Res, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Req,
+  Res,
+  Get,
+  Body,
+  HttpCode
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { Public } from './decorators';
-import { User } from '../users/schema';
-import { LocalAuthGuard } from './passport';
-import { AuthService } from './auth.service';
-import { AppConfig } from 'src/config/app.config';
 import { GoogleAuthGuard, GithubAuthGuard } from './passport';
+import { SignUpDto } from './dto/sign-up.dto';
+import { ReqUser } from '@common/decorators';
+import { AuthService } from './auth.service';
+import { RequestUser } from '@common/types';
+import { LocalAuthGuard } from './passport';
+import { AppConfig } from '@common/config';
+import { Public } from './decorators';
 
 @Controller()
 export class AuthController {
@@ -19,10 +30,9 @@ export class AuthController {
 
   private readonly appConfig = this.configService.get('app', { infer: true });
   private readonly handleOAuthCallback = async (
-    req: Request,
+    user: RequestUser,
     res: Response
   ) => {
-    const user = req.user as User;
     const token = await this.authService.getJwtToken(user);
     const expiresIn = new Date(
       Date.now() + ms(this.appConfig.jwt.expiresIn)
@@ -33,16 +43,26 @@ export class AuthController {
   };
 
   @Public()
+  @Post('signup')
+  async signup(@Body() signUpDto: SignUpDto) {
+    const user = await this.authService.signUp(
+      signUpDto,
+      '-_id -__v -password'
+    );
+    return { user: user };
+  }
+
+  @Public()
+  @HttpCode(200)
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Req() req: Request) {
-    const user = req.user as User;
-    const token = await this.authService.getJwtToken(user);
+  async login(@ReqUser() reqUser: RequestUser) {
+    const token = await this.authService.getJwtToken(reqUser);
     const expiresIn = new Date(
       Date.now() + ms(this.appConfig.jwt.expiresIn)
     ).getTime();
     return {
-      user: user,
+      user: reqUser,
       token: {
         encoded: token,
         expiresIn: expiresIn
@@ -67,19 +87,19 @@ export class AuthController {
   @Public()
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google/callback')
-  async oAuthGoogleCallback(@Req() req: Request, @Res() res: Response) {
-    return this.handleOAuthCallback(req, res);
+  async oAuthGoogleCallback(@ReqUser() reqUser: RequestUser, @Res() res: Response) {
+    return this.handleOAuthCallback(reqUser, res);
   }
 
   @Public()
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github/callback')
-  async oAuthGithubCallback(@Req() req: Request, @Res() res: Response) {
-    return this.handleOAuthCallback(req, res);
+  async oAuthGithubCallback(@ReqUser() reqUser: RequestUser, @Res() res: Response) {
+    return this.handleOAuthCallback(reqUser, res);
   }
 
   @Get('whoami')
-  async whoami(@Req() req: Request) {
-    return { user: req.user };
+  async whoami(@ReqUser() reqUser: RequestUser) {
+    return { user: reqUser };
   }
 }

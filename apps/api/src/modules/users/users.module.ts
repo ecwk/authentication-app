@@ -12,6 +12,6 @@ import { User, UserSchema } from './schema';
   ],
   controllers: [UsersController],
   providers: [UsersService, IsEmailExistConstraint],
-  exports: [UsersService]
+  exports: [UsersService, IsEmailExistConstraint]
 })
 export class UsersModule {}

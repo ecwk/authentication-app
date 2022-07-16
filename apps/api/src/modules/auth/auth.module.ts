@@ -4,13 +4,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
-import { AppConfig } from 'src/config/app.config';
+import { GoogleStrategy, GithubStrategy } from './passport';
+import { JwtAuthGuard, LocalStrategy } from './passport';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard, LocalStrategy } from './passport';
+import { AppConfig } from '@common/config';
 import { JwtStrategy } from './passport';
-import { GoogleStrategy, GithubStrategy } from './passport';
 
 @Module({
   imports: [
