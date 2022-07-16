@@ -39,8 +39,10 @@ export class AuthController {
 
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google')
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  oAuthGoogle() {}
+  oAuthGoogle() {
+    // This endpoint is used for OAuth authentication
+    // If successful, the user will be redirected to the callback
+  }
 
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google/callback')
@@ -57,8 +59,10 @@ export class AuthController {
 
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github')
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  oAuthGithub() {}
+  oAuthGithub() {
+    // This endpoint is used for OAuth authentication
+    // If successful, the user will be redirected to the callback
+  }
 
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github/callback')
