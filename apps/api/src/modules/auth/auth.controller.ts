@@ -19,6 +19,19 @@ export class AuthController {
   ) {}
 
   private readonly appConfig = this.configService.get('app', { infer: true });
+  private readonly handleOAuthCallback = async (
+    req: Request,
+    res: Response
+  ) => {
+    const user = req.user as User;
+    const token = await this.authService.getJwtToken(user);
+    const expiresIn = new Date(
+      Date.now() + ms(this.appConfig.jwt.expiresIn)
+    ).getTime();
+    res.redirect(
+      `${this.appConfig.client.oAuthSuccessRedirect}?token=${token}&expiresIn=${expiresIn}`
+    );
+  };
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -29,10 +42,10 @@ export class AuthController {
       Date.now() + ms(this.appConfig.jwt.expiresIn)
     ).getTime();
     return {
-      user,
+      user: user,
       token: {
         encoded: token,
-        expiresIn
+        expiresIn: expiresIn
       }
     };
   }
@@ -40,40 +53,23 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google')
   oAuthGoogle() {
-    // This endpoint is used for OAuth authentication
-    // If successful, the user will be redirected to the callback
+    // redirects to callback if authenticated with OAuth
+  }
+  @UseGuards(GithubAuthGuard)
+  @Get('oauth/github')
+  oAuthGithub() {
+    // redirects to callback if authenticated with OAuth
   }
 
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google/callback')
   async oAuthGoogleCallback(@Req() req: Request, @Res() res: Response) {
-    const user = req.user as User;
-    const token = await this.authService.getJwtToken(user);
-    const expiresIn = new Date(
-      Date.now() + ms(this.appConfig.jwt.expiresIn)
-    ).getTime();
-    res.redirect(
-      `${this.appConfig.client.oAuthSuccessRedirect}?token=${token}&expiresIn=${expiresIn}`
-    );
-  }
-
-  @UseGuards(GithubAuthGuard)
-  @Get('oauth/github')
-  oAuthGithub() {
-    // This endpoint is used for OAuth authentication
-    // If successful, the user will be redirected to the callback
+    return this.handleOAuthCallback(req, res);
   }
 
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github/callback')
   async oAuthGithubCallback(@Req() req: Request, @Res() res: Response) {
-    const user = req.user as User;
-    const token = await this.authService.getJwtToken(user);
-    const expiresIn = new Date(
-      Date.now() + ms(this.appConfig.jwt.expiresIn)
-    ).getTime();
-    res.redirect(
-      `${this.appConfig.client.oAuthSuccessRedirect}?token=${token}&expiresIn=${expiresIn}`
-    );
+    return this.handleOAuthCallback(req, res);
   }
 }
