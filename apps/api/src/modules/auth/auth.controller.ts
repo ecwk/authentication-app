@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { AppConfig } from 'src/config/app.config';
 import { GoogleAuthGuard, GithubAuthGuard } from './passport';
 
-@Public()
 @Controller()
 export class AuthController {
   constructor(
@@ -33,6 +32,7 @@ export class AuthController {
     );
   };
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Req() req: Request) {
@@ -50,26 +50,36 @@ export class AuthController {
     };
   }
 
+  @Public()
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google')
   oAuthGoogle() {
     // redirects to callback if authenticated with OAuth
   }
+
+  @Public()
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github')
   oAuthGithub() {
     // redirects to callback if authenticated with OAuth
   }
 
+  @Public()
   @UseGuards(GoogleAuthGuard)
   @Get('oauth/google/callback')
   async oAuthGoogleCallback(@Req() req: Request, @Res() res: Response) {
     return this.handleOAuthCallback(req, res);
   }
 
+  @Public()
   @UseGuards(GithubAuthGuard)
   @Get('oauth/github/callback')
   async oAuthGithubCallback(@Req() req: Request, @Res() res: Response) {
     return this.handleOAuthCallback(req, res);
+  }
+
+  @Get('whoami')
+  async whoami(@Req() req: Request) {
+    return { user: req.user };
   }
 }
