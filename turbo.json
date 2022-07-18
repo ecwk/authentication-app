@@ -23,6 +23,15 @@
         "dist/**",
         ".next/**"
       ]
+    },
+    "prod": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     }
   }
 }
