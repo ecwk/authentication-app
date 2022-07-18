@@ -26,7 +26,7 @@ const Register: NextPage = () => {
           Join thousands of learners from around the world
         </Heading>
         <Text mt={4} maxW="320px">
-          Master web development by making real-life projects. THere are
+          Master web development by making real-life projects. There are
           multiple paths for you to choose
         </Text>
         <RegisterForm mt={8} />
