@@ -27,14 +27,17 @@ jobs:
 
       - name: 🔥 Start The App
         uses: appleboy/ssh-action@master
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
+          envs: USERNAME
           script: |
-            . ~/.bashrc
+            export PATH=$PATH:/home/$USERNAME/.local/share/pnpm
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             pm2 list
