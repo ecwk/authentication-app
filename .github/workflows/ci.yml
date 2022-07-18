@@ -1,4 +1,4 @@
-name: CI
+name: 🧪 CI
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: 🔧🧪 Build and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          cache: 'pnpm'
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
@@ -38,3 +39,7 @@ jobs:
 
       - name: 🧪 Test
         run: pnpm test
+
+      - name: 🚚 Lint
+        run: pnpm run lint
+
