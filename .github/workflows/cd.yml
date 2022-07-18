@@ -34,15 +34,11 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            . ~/.profile
+            source ~/.bashrc
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            exec $SHELL
-            echo $SERVER_URL
-            echo $CLIENT_URL
-            echo $PATH
-            cd /var/www/vhosts/authentication-app
-            pm2 stop authentication-app
-            pm2 delete authentication-app
-            pnpm install --frozen-lockfile
-            pm2 start "pnpm prod" --name authentication-app
+          # exec $SHELL
+            pm2 list
+            pnpm list
+
+          # . ~/.profile
