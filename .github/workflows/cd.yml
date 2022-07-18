@@ -42,7 +42,7 @@ jobs:
             source ~/.nvm/nvm.sh
             cd /var/www/vhosts/authentication-app
             pnpm install
-            pm2 restart
+            pm2 restart authentication-app
           #pm2 list
           #pnpm list
           # . ~/.profile
