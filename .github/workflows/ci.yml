@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v2
+
+      - name: 🟧 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
+
+      - name: 🟢 Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔧 Build
+        run: pnpm build
+
+      - name: 🧪 Test
+        run: pnpm test
