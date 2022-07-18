@@ -26,8 +26,7 @@
     "husky": "^8.0.0",
     "prettier": "latest",
     "prettier-config": "workspace:*",
-    "turbo": "latest",
-    "test": "latest"
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
