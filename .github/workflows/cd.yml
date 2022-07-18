@@ -34,11 +34,9 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            source ~/.bashrc
+            . ~/.bashrc
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             pm2 list
             pnpm list
-          # exec $SHELL
-
           # . ~/.profile
