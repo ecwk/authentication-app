@@ -40,6 +40,9 @@ jobs:
             export PATH=$PATH:/home/$USERNAME/.local/share/pnpm
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            pm2 list
-            pnpm list
+            cd /var/www/vhosts/authentication-app
+            pnpm install
+            pm2 restart
+          #pm2 list
+          #pnpm list
           # . ~/.profile
