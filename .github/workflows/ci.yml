@@ -9,13 +9,16 @@ on:
 jobs:
   build:
     name: 🔧🧪 Build and Test
+
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
     steps:
       - name: 📚 Checkout
         uses: actions/checkout@v2
@@ -42,4 +45,3 @@ jobs:
 
       - name: 🚚 Lint
         run: pnpm run lint
-
