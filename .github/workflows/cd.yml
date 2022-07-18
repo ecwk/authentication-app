@@ -34,10 +34,13 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            echo $SERVER_URL
-            echo $CLIENT_URL
+            . ~/.profile
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
+            exec $SHELL
+            echo $SERVER_URL
+            echo $CLIENT_URL
+            echo $PATH
             cd /var/www/vhosts/authentication-app
             pm2 stop authentication-app
             pm2 delete authentication-app
