@@ -24,3 +24,18 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: '.'
           target: '/var/www/vhosts/authentication-app'
+
+      - name: 🔥 Start The App
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            cd /var/www/vhosts/authentication-app
+            pm2 stop authentication-app
+            pm2 delete authentication-app
+            pnpm install --frozen-lockfile
+            pm2 start "pnpm prod" --name authentication-app
