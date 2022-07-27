@@ -77,7 +77,7 @@ To develop all apps and packages, run the following command:
 # Ensure that NODE_ENV=development
 cd authentication-app
 
-pnpm prod
+pnpm dev
 ```
 
 #### For Production
