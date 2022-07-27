@@ -1,77 +1,92 @@
-# Turborepo starter with pnpm
+# Authentication App
 
-This is an official starter turborepo.
+<a href="https://authentication-app.deploy.cnoside.dev">
+  <img src="https://user-images.githubusercontent.com/82776299/181178080-5e68c7ac-d639-4117-872a-73f1c0ccb3a5.png" /> 
+</a>
+
+This is a login app based on the [devchallenges.io](https://devchallenges.io) authentication app wireframe
+
+The app is hosted on https://authentication-app.deploy.cnoside.dev
+
+## Features
+- **OAuth** login with [Google](https://developers.google.com/identity/protocols/oauth2) and [Github](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps)
+- **Image uploads** with **S3 Buckets**
+- View and edit profile
+- **Persistent login** with [Passport.js](https://passportjs.com)
+- **Context API**
+- Server and client-side **validation**
+- Popular react hook libraries (includes [React Hook Form](https://react-hook-form.com) and [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/))
+- Built using **Turborepo**, a monorepo build tool
+- Implemented CI/CD with **Github Actions**
 
 ## What's inside?
 
-This turborepo uses [pnpm](https://pnpm.io) as a packages manager. It includes the following packages/apps:
+### Tech Stack
 
-### Apps and Packages
+**Frontend**
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- [Next.js](https://nextjs.org/), a react-based framework
+- [Chakra UI](https://chakra-ui.com/), a component library
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+**Backend**
+
+- [Nestjs](https://nestjs.com), a backend web framework powered by Express.js
+- [MongoDB](https://www.mysql.com/), a document-oriented database
+
+### Folder Structure
+
+- `apps/api`: API powered by nest.js
+- `apps/web`: web app powered by next.js
+- `packages/prettier-config`: `prettier` configurations
+- `packages/scripts`: scripts used throughout the monorepo (includes `custom-commit` for formatting git commits)
 
 ### Utilities
 
-This turborepo has some additional tools already setup for you:
-
+- [Turborepo](https://turborepo.org/) for building monorepos
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
-## Setup
+## How to Setup?
 
-This repository is used in the `npx create-turbo@latest` command, and selected when choosing which package manager you wish to use with your monorepo (pnpm).
+### Prerequisites
 
-### Build
+- [pnpm](https://www.npmjs.com/): ^6.0.0
+- [node](https://nodejs.org/): ^16.0.0
+- [MongoDB Server](https://mongodb.com/)
+- [S3 Bucket](https://www.digitalocean.com/products/spaces)
 
-To build all apps and packages, run the following command:
+### Configuration
 
-```
-cd my-turborepo
-pnpm run build
-```
+Refer to `.env.example` in both `apps/api` and `apps/web` directories and create a `.env` file in each.
+  - `apps/api` uses `.env`
+  - `apps/web` uses `.env.local`
 
-### Develop
+Alternatively, you can use setup environmental variables in your system
+- [Linux](#)
+- [Windows](#)
+- [Mac](#)
+
+### Start the App
+
+#### For Development
 
 To develop all apps and packages, run the following command:
 
-```
-cd my-turborepo
-pnpm run dev
-```
+```bash
+# Ensure that NODE_ENV=development
+cd authentication-app
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-pnpx turbo login
+pnpm prod
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+#### For Production
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+To start the app for production, run the following commands:
 
+```bash
+# Ensure that NODE_ENV=production
+cd authentication-app
+
+pnpm prod
 ```
-pnpx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
