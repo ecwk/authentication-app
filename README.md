@@ -1,12 +1,10 @@
 # Authentication App
 
-<a href="https://authentication-app.deploy.cnoside.dev">
+<a href="#">
   <img src="https://user-images.githubusercontent.com/82776299/181178080-5e68c7ac-d639-4117-872a-73f1c0ccb3a5.png" /> 
 </a>
 
 This is a login app based on the [devchallenges.io](https://devchallenges.io) authentication app wireframe
-
-The app is hosted on https://authentication-app.deploy.cnoside.dev
 
 ## Features
 - **OAuth** login with [Google](https://developers.google.com/identity/protocols/oauth2) and [Github](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps)
